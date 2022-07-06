@@ -5,20 +5,25 @@ import java.util.Date;
 public class DataOfDate {
 
 	private Date date;
-	private String txt;
+	private String fname;
+	private String lname;
 	
-	DataOfDate(Date date, String txt){
+	DataOfDate(Date date, String fname, String lname){
 		this.date = date;
-		this.txt = txt;
+		this.fname = fname;
+		this.lname = lname;
 	}
 	
 	public Date getDate() {
 		return date;
 	}
 	
-	public String getTxt() {
-		return txt;
+	public String getfname() {
+		return fname;
 	}
 	
+	public String getlname() {
+		return lname;
+	}
 	
 }
