@@ -7,7 +7,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 
 public class BtnView {
 
@@ -19,12 +23,23 @@ public class BtnView {
 	private Filelastname fln = new Filelastname();
 	private Filebirthdays fb = new Filebirthdays();
 	
+	BtnView(){
+		
+	}
+	
 	BtnView(JButton btnView){
 		this.btnView = btnView;
 	}
 	
 	void load() {
-
+		JFrame frame = new JFrame();
+		frame.setBounds(100, 100, 244, 328);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		frame.setVisible(false);
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
+		
 		btnView.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -36,9 +51,19 @@ public class BtnView {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				DefaultListModel tempList = new DefaultListModel();
+				String tempLine;
 				for(int i = 1; i < dates.size(); i++) {
-					System.out.println(fnames.get(i)+" "+lnames.get(i)+" "+dates.get(i));
+					tempLine = fnames.get(i)+" "+lnames.get(i)+" "+dates.get(i);
+					tempList.add(i-1, tempLine);
 				}
+				JScrollPane scrollPane = new JScrollPane();
+				scrollPane.setBounds(10, 11, 207, 267);
+				frame.getContentPane().add(scrollPane);
+				JList list = new JList(tempList);
+				list.setBounds(10, 11, 207, 267);
+				scrollPane.setViewportView(list);
+				frame.setVisible(true);
 			}
 		});
 	}
