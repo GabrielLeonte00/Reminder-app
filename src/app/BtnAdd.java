@@ -22,7 +22,7 @@ public class BtnAdd {
 		
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mousePressed(MouseEvent e) {
 				abf.getFrame().setVisible(true);
 			}
 		});

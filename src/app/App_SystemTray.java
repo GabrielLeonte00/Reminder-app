@@ -8,6 +8,8 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -16,6 +18,7 @@ import javax.swing.JFrame;
 public class App_SystemTray {
 	
 	private JFrame frame;
+	private TrayIcon trayIcon;
 	
 	/**
 	 * Constructor with parameters
@@ -39,8 +42,22 @@ public class App_SystemTray {
 		SystemTray systemTray = SystemTray.getSystemTray();
 		File icon = new File("res/icon.png");
 		Image image = ImageIO.read(icon);
-		TrayIcon trayIcon = new TrayIcon(image);
+		trayIcon = new TrayIcon(image);
 		PopupMenu popMenu = new PopupMenu();
+		
+		trayIcon.addMouseMotionListener(new MouseMotionListener() {
+			
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				trayIcon.setToolTip("Birthday reminder");
+			}
+			
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		MenuItem show = new MenuItem("Show");
 		show.addActionListener(new ActionListener() {

@@ -8,15 +8,22 @@ import java.text.ParseException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JList;
+import javax.swing.JCheckBox;
+import javax.swing.JScrollPane;
 
 public class GUI {
 
-	private JFrame frame;
+	private static JFrame frame;
 	private JButton btnAdd;
 	private JButton btnDel;
-	private JButton btnView;
-	private JButton btnEnable;
-
+	private JButton btnUpdate;
+	private JCheckBox StartupCheckBox;
+	private JList<String> CurrentMonth;
+	private JList<String> NextMonth;
+	private JScrollPane scrollPaneCM;
+	private JScrollPane scrollPaneNM;
+	
 	/**
 	 * Create the application.
 	 * @throws IOException 
@@ -26,7 +33,8 @@ public class GUI {
 		initialize();
 		new App_SystemTray(frame).load();
 		
-		new Engine(btnAdd, btnDel, btnView, btnEnable).load();
+		new Engine(btnAdd, btnDel, btnUpdate, CurrentMonth, NextMonth, scrollPaneCM, scrollPaneNM, frame).load();
+		
 	}
 
 	/**
@@ -34,8 +42,8 @@ public class GUI {
 	 * @throws IOException 
 	 */
 	private void initialize() throws IOException {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 350, 330);
+		frame = new JFrame("Birthday reminder");
+		frame.setBounds(100, 100, 546, 401);
 		frame.setLocationRelativeTo(null);
 		
 		File icon = new File("res/icon.png");
@@ -44,25 +52,25 @@ public class GUI {
 		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
 		
-		btnDel = new JButton("Delete birthday");	
-		btnDel.setBounds(70, 109, 183, 49);
+		btnDel = new JButton("Delete");	
+		btnDel.setBounds(142, 302, 118, 49);
 		btnDel.setFocusable(false);
 		frame.getContentPane().add(btnDel);
 		
-		btnView = new JButton("View birthdays");
-		btnView.setBounds(70, 169, 183, 49);
-		btnView.setFocusable(false);
-		frame.getContentPane().add(btnView);
+		btnUpdate = new JButton("Update");
+		btnUpdate.setBounds(270, 302, 118, 49);
+		btnUpdate.setFocusable(false);
+		frame.getContentPane().add(btnUpdate);
 		
-		btnEnable = new JButton("Enable startup");
-		btnEnable.setBounds(70, 229, 183, 49);
-		btnEnable.setFocusable(false);
-		frame.getContentPane().add(btnEnable);
-		
-		btnAdd = new JButton("Add birthday");
-		btnAdd.setBounds(70, 49, 183, 49);
+		btnAdd = new JButton("Add");
+		btnAdd.setBounds(10, 302, 118, 49);
 		btnAdd.setFocusable(false);
 		frame.getContentPane().add(btnAdd);
+		
+		StartupCheckBox = new JCheckBox("Open at startup");
+		StartupCheckBox.setBounds(394, 305, 126, 43);
+		StartupCheckBox.setFocusable(false);
+		frame.getContentPane().add(StartupCheckBox);
 		
 	}
 	

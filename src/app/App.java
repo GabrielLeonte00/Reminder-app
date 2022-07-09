@@ -39,6 +39,7 @@ public class App {
 	    	JFrame mesaj = new JFrame();
 			JOptionPane.showMessageDialog(mesaj,"The application is running already","Info",JOptionPane.INFORMATION_MESSAGE);
 			mesaj.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			mesaj.setFocusable(false);
 	    }
 	    finally {
 	      if (socket != null)

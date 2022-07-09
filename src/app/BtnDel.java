@@ -1,66 +1,133 @@
 package app;
 
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.Vector;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
 
 public class BtnDel {
 
 	private JButton btnDel; 
-	private Vector<String> dates = new Vector<>();
-	private Vector<String> fnames = new Vector<>();
-	private Vector<String> lnames = new Vector<>();
-	private Filefirstname ffn = new Filefirstname();
-	private Filelastname fln = new Filelastname();
-	private Filebirthdays fb = new Filebirthdays();
+	private JList<String> CurrentMonth;
+	private JList<String> NextMonth;
+	private MouseListener listenerNextMonth;
+	private boolean OK = false;
 	
-	BtnDel(JButton btnDel){
+	BtnDel(JButton btnDel, JList<String> CurrentMonth){
 		this.btnDel = btnDel;
+		this.CurrentMonth = CurrentMonth;
+	}
+	BtnDel(){
+		
 	}
 	
 	void load() {
-		JFrame frame = new JFrame();
-		frame.setBounds(100, 100, 244, 328);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setVisible(false);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
 		
-		btnDel.addMouseListener(new MouseAdapter() {
+		CurrentMonth.addMouseListener(new MouseListener() {
+
+			
 			@Override
 			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				String temp = CurrentMonth.getSelectedValue();
+				FileDeleteIndex tempDI = null;
 				try {
-					dates = fb.getDates();
-					fnames = ffn.getfname();
-					lnames = fln.getlname();
+					tempDI = new FileDeleteIndex();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				DefaultListModel tempList = new DefaultListModel();
-				String tempLine;
-				for(int i = 1; i < dates.size(); i++) {
-					tempLine = fnames.get(i)+" "+lnames.get(i)+" "+dates.get(i);
-					tempList.add(i-1, tempLine);
-				}
-				JScrollPane scrollPane = new JScrollPane();
-				scrollPane.setBounds(10, 11, 207, 267);
-				frame.getContentPane().add(scrollPane);
-				JList list = new JList(tempList);
-				list.setBounds(10, 11, 207, 267);
-				scrollPane.setViewportView(list);
-				frame.setVisible(true);
+				int i = tempDI.getDeleteIndex(temp);
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
+		
+	}
+	
+	void loadNext(JList<String> NextMonth) {
+		
+		this.NextMonth = NextMonth;
+		if(OK == false) {
+			createListener();
+			NextMonth.addMouseListener(listenerNextMonth);
+			OK = true;
+		} else {
+			NextMonth.removeMouseListener(listenerNextMonth);
+			createListener();
+			NextMonth.addMouseListener(listenerNextMonth);
+		}
+		
+	}
+	
+	void createListener() {
+		
+		listenerNextMonth = new MouseListener() {
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				String temp = NextMonth.getSelectedValue();
+				FileDeleteIndex tempDI = null;
+				try {
+					tempDI = new FileDeleteIndex();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				int i = tempDI.getDeleteIndex(temp);
+			}
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
 	}
 	
 }
