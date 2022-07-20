@@ -6,6 +6,7 @@ import java.awt.MenuItem;
 import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
+import java.awt.TrayIcon.MessageType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -17,15 +18,9 @@ import javax.swing.JFrame;
 
 public class App_SystemTray {
 	
-	private JFrame frame;
-	private TrayIcon trayIcon;
+	private static TrayIcon trayIcon;
 	
-	/**
-	 * Constructor with parameters
-	 * @param frame GUI's frame used for the SystemTray to work with
-	 */
-	App_SystemTray(JFrame frame){
-		this.frame = frame;
+	App_SystemTray(){
 	}
 	
 	/**
@@ -64,8 +59,8 @@ public class App_SystemTray {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(true);
-				frame.setExtendedState(JFrame.NORMAL);
+				GUI.frame.setVisible(true);
+				GUI.frame.setExtendedState(JFrame.NORMAL);
 			}
 		});
 		
@@ -91,6 +86,10 @@ public class App_SystemTray {
 			e1.printStackTrace();
 		}
 		
+	}
+	
+	public void BirthdayMessage(String Birthday) {
+		trayIcon.displayMessage("Reminder!", Birthday, MessageType.NONE);
 	}
 	
 }

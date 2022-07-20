@@ -11,8 +11,8 @@ public class BtnAdd {
 
 	private JButton btnAdd; 
 	
-	BtnAdd(JButton btnAdd){
-		this.btnAdd = btnAdd;
+	BtnAdd(){
+		this.btnAdd = GUI.btnAdd;
 	}
 	
 	void load() throws IOException, ParseException {

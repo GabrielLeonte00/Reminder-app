@@ -3,35 +3,45 @@ package app;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
-import java.util.Vector;
-
 import javax.swing.JButton;
 import javax.swing.JList;
 
 public class BtnDel {
 
 	private JButton btnDel; 
-	private JList<String> CurrentMonth;
-	private JList<String> NextMonth;
+	static JList<String> CurrentMonth;
+	static JList<String> NextMonth;
 	private MouseListener listenerNextMonth;
+	private static int Selected = 0;
 	private boolean OK = false;
+	private DeleteAction delete;
 	
-	BtnDel(JButton btnDel, JList<String> CurrentMonth){
-		this.btnDel = btnDel;
-		this.CurrentMonth = CurrentMonth;
-	}
 	BtnDel(){
-		
+		this.btnDel = GUI.btnDel;
+		BtnDel.CurrentMonth = GUI.CurrentMonth;
 	}
 	
 	void load() {
+		delete = new DeleteAction(btnDel, -1);
+		delete.preload();
+		loadCurrent();
+	}
+	
+	void loadCurrent() {
 		
-		CurrentMonth.addMouseListener(new MouseListener() {
-
+		
+		MouseListener actionCurrent = new MouseListener() {
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
+				DeleteAction.CurrentOrNext = 0;
+				
+				if(Selected == 0) {
+					Selected = 1;
+					delete.postpreload();
+				}
+				
 				String temp = CurrentMonth.getSelectedValue();
 				FileDeleteIndex tempDI = null;
 				try {
@@ -40,7 +50,11 @@ public class BtnDel {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				int i = tempDI.getDeleteIndex(temp);
+				int deleteIndex = tempDI.getDeleteIndex(temp);
+				System.out.println(deleteIndex);
+					delete = new DeleteAction(btnDel, deleteIndex);
+					delete.load();
+				
 			}
 			
 			@Override
@@ -66,32 +80,33 @@ public class BtnDel {
 				// TODO Auto-generated method stub
 				
 			}
-		});
-		
+		};
+		CurrentMonth.addMouseListener(actionCurrent);
 	}
 	
-	void loadNext(JList<String> NextMonth) {
-		
-		this.NextMonth = NextMonth;
+	void loadNext(JList<String> NextMonth,JButton btnDel) {
+		BtnDel.NextMonth = NextMonth;
 		if(OK == false) {
-			createListener();
+			createListener(btnDel);
 			NextMonth.addMouseListener(listenerNextMonth);
 			OK = true;
 		} else {
 			NextMonth.removeMouseListener(listenerNextMonth);
-			createListener();
+			createListener(btnDel);
 			NextMonth.addMouseListener(listenerNextMonth);
 		}
 		
 	}
 	
-	void createListener() {
-		
+	void createListener(JButton btnDel) {
 		listenerNextMonth = new MouseListener() {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
+				// TODO Auto-generated method stub	
+				
+				DeleteAction.CurrentOrNext = 1;
+				
 				String temp = NextMonth.getSelectedValue();
 				FileDeleteIndex tempDI = null;
 				try {
@@ -100,7 +115,10 @@ public class BtnDel {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				int i = tempDI.getDeleteIndex(temp);
+				int deleteIndex = tempDI.getDeleteIndex(temp);
+					//System.out.println(deleteIndex);
+					delete = new DeleteAction(btnDel, deleteIndex);
+					delete.load();
 			}
 			
 			@Override

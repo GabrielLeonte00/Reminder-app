@@ -3,15 +3,12 @@ package app;
 import java.awt.EventQueue;
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.Date;
-import java.util.Vector;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class App {
 	
-	private static Vector<Date> Data_dates=new Vector<>();
+	static GUI window;
 	
 	/**
 	 * Launch the application.
@@ -25,7 +22,7 @@ public class App {
 	    	  EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						GUI window = new GUI();
+						window = new GUI();
 						window.getFrame().setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -46,10 +43,6 @@ public class App {
 	          try{ socket.close(); } catch(Exception e){}
 	    }
 		
-	}
-	
-	public Vector<Date> getData_dates() {
-		return Data_dates;
 	}
 	
 }

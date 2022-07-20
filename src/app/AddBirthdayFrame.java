@@ -149,6 +149,8 @@ public class AddBirthdayFrame {
 						JOptionPane.showMessageDialog(mesaj,"Birthday successfully added","Info",JOptionPane.INFORMATION_MESSAGE);
 						mesaj.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						mesaj.setFocusable(false);
+						//String newDate = newdate + " - " + txtFirstName.getText() + " " + txtLastName.getText();
+						//Months.tempList.addElement(newDate);
 						txtFirstName.setText("First name");
 						txtLastName.setText("Last name");
 						dateChooser.setDate(date);

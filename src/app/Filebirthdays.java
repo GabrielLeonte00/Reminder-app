@@ -6,15 +6,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 public class Filebirthdays {
 	
 	private Vector<String> dates = new Vector<>();
 	File bdate = new File("res/data_birthday_date");
-	Path bpath = Paths.get(bdate.getAbsolutePath());
-	SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yyyy");  
+	Path bpath = Paths.get(bdate.getAbsolutePath()); 
 	
 	Filebirthdays(){
 	}

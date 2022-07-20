@@ -9,35 +9,29 @@ import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 
 import com.toedter.calendar.JMonthChooser;
 
 public class Months {
 
-	private JList<String> CurrentMonth;
-	private JList<String> NextMonth;
-	private Vector<String> dates = new Vector<>();
-	private Vector<String> fnames = new Vector<>();
-	private Vector<String> lnames = new Vector<>();
+	static Vector<String> dates = new Vector<>();
+	static Vector<String> fnames = new Vector<>();
+	static Vector<String> lnames = new Vector<>();
 	private Filefirstname ffn = new Filefirstname();
 	private Filelastname fln = new Filelastname();
 	private Filebirthdays fb = new Filebirthdays();
-	private JScrollPane scrollPaneCM;
-	private JScrollPane scrollPaneNM;
-	private JFrame frame;
 	private JTextField txtCurrentMonth;
+	static DefaultListModel<String> tempList;
+	static DefaultListModel<String> tempListNew;
+	private PropertyChangeListener monthChooserListener;
+	static JMonthChooser monthChooser;
 	
-	Months(JList<String> CurrentMonth, JList<String> NextMonth, JScrollPane scrollPaneCM, JScrollPane scrollPaneNM, JFrame frame){
-		this.CurrentMonth = CurrentMonth;
-		this.NextMonth = NextMonth;
-		this.scrollPaneCM = scrollPaneCM;
-		this.scrollPaneNM = scrollPaneNM;
-		this.frame = frame;
+	Months(){
 	}
 	
 	void load() throws ParseException {
@@ -49,20 +43,20 @@ public class Months {
 		txtCurrentMonth.setText(formatter_month.format(date)+"'s birthdays");
 		txtCurrentMonth.setHorizontalAlignment(SwingConstants.CENTER);
 		txtCurrentMonth.setBounds(10, 11, 250, 20);
-		frame.getContentPane().add(txtCurrentMonth);
+		GUI.frame.getContentPane().add(txtCurrentMonth);
 		txtCurrentMonth.setColumns(10);
 		
-		JMonthChooser monthChooser = new JMonthChooser();
+		monthChooser = new JMonthChooser();
 		monthChooser.setBounds(341, 11, 108, 20);
-		frame.getContentPane().add(monthChooser);
+		GUI.frame.getContentPane().add(monthChooser);
 		
-		scrollPaneCM = new JScrollPane();
-		scrollPaneCM.setBounds(10, 41, 250, 250);
-		frame.getContentPane().add(scrollPaneCM);
+		GUI.scrollPaneCM = new JScrollPane();
+		GUI.scrollPaneCM.setBounds(10, 41, 250, 250);
+		GUI.frame.getContentPane().add(GUI.scrollPaneCM);
 		
-		scrollPaneNM = new JScrollPane();
-		scrollPaneNM.setBounds(270, 41, 250, 250);
-		frame.getContentPane().add(scrollPaneNM);
+		GUI.scrollPaneNM = new JScrollPane();
+		GUI.scrollPaneNM.setBounds(270, 41, 250, 250);
+		GUI.frame.getContentPane().add(GUI.scrollPaneNM);
 		
 		try {
 			dates = fb.getDates();
@@ -72,7 +66,7 @@ public class Months {
 			e1.printStackTrace();
 		}
 		
-		DefaultListModel<String> tempList = new DefaultListModel<String>();
+		tempList = new DefaultListModel<String>();
 		String tempLine;
 		for(int i = 1; i < dates.size(); i++) {
 			int cont = 0;
@@ -85,17 +79,25 @@ public class Months {
 		}
 		OrderDaysMonth list = new OrderDaysMonth(tempList, dates, fnames, lnames);
 		tempList = list.getOrder();
-		CurrentMonth = new JList<String>(tempList);
-		scrollPaneCM.setViewportView(CurrentMonth);
+		GUI.CurrentMonth = new JList<String>(tempList);
+		GUI.scrollPaneCM.setViewportView(GUI.CurrentMonth);
 		
 		int nextMonth = getNextMonth(formatter_month.format(date));
 		monthChooser.setMonth(nextMonth);
 		
-		monthChooser.addPropertyChangeListener(new PropertyChangeListener() {
+		monthChooserListener = new PropertyChangeListener() {
 			
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				DefaultListModel<String> tempListNew = new DefaultListModel<String>();
+				try {
+					dates = fb.getDates();
+					fnames = ffn.getfname();
+					lnames = fln.getlname();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				tempListNew = new DefaultListModel<String>();
 				String tempLineNew;
 				for(int i = 1; i < dates.size(); i++) {
 					int contNew = 0;
@@ -118,11 +120,14 @@ public class Months {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				NextMonth = new JList<String>(tempListNew);
-				scrollPaneNM.setViewportView(NextMonth);
-				new BtnDel().loadNext(NextMonth);
+				GUI.NextMonth = new JList<String>(tempListNew);
+				GUI.NextMonth.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				GUI.scrollPaneNM.setViewportView(GUI.NextMonth);
+				new BtnDel().loadNext(GUI.NextMonth, GUI.btnDel);
+				
 			}
-		});
+		};
+		monthChooser.addPropertyChangeListener(monthChooserListener);
 	}
 
 	void birthday() throws IOException {
@@ -133,7 +138,8 @@ public class Months {
 		lnames = fln.getlname();
 		for(int i = 1; i < dates.size(); i++) {
 			if(formatter.format(date).equals(dates.get(i))) {
-				System.out.println("Today is " + fnames.get(i) + " " + lnames.get(i) + "'birthday!");
+				String birthday = "Today is " + fnames.get(i) + " " + lnames.get(i) + "'birthday!";
+				new App_SystemTray().BirthdayMessage(birthday);
 			}
 		}
 	}
@@ -159,7 +165,4 @@ public class Months {
 		return nextMonth;
 	}
 	
-	public JList<String> getCurrentMonth(){
-		return CurrentMonth;
-	}
 }

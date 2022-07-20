@@ -11,18 +11,19 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JCheckBox;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 public class GUI {
 
-	private static JFrame frame;
-	private JButton btnAdd;
-	private JButton btnDel;
-	private JButton btnUpdate;
-	private JCheckBox StartupCheckBox;
-	private JList<String> CurrentMonth;
-	private JList<String> NextMonth;
-	private JScrollPane scrollPaneCM;
-	private JScrollPane scrollPaneNM;
+	static JFrame frame;
+	static JButton btnAdd;
+	static JButton btnDel;
+	static JCheckBox StartupCheckBox;
+	static JList<String> CurrentMonth;
+	static JList<String> NextMonth;
+	static JScrollPane scrollPaneCM;
+	static JScrollPane scrollPaneNM;
+	static Engine startApp;
 	
 	/**
 	 * Create the application.
@@ -31,10 +32,10 @@ public class GUI {
 	 */
 	public GUI() throws IOException, ParseException {
 		initialize();
-		new App_SystemTray(frame).load();
-		
-		new Engine(btnAdd, btnDel, btnUpdate, CurrentMonth, NextMonth, scrollPaneCM, scrollPaneNM, frame).load();
-		
+		new App_SystemTray().load();
+		startApp = new Engine();
+		startApp.load();
+		CurrentMonth.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 
 	/**
@@ -57,18 +58,13 @@ public class GUI {
 		btnDel.setFocusable(false);
 		frame.getContentPane().add(btnDel);
 		
-		btnUpdate = new JButton("Update");
-		btnUpdate.setBounds(270, 302, 118, 49);
-		btnUpdate.setFocusable(false);
-		frame.getContentPane().add(btnUpdate);
-		
 		btnAdd = new JButton("Add");
 		btnAdd.setBounds(10, 302, 118, 49);
 		btnAdd.setFocusable(false);
 		frame.getContentPane().add(btnAdd);
 		
 		StartupCheckBox = new JCheckBox("Open at startup");
-		StartupCheckBox.setBounds(394, 305, 126, 43);
+		StartupCheckBox.setBounds(334, 305, 186, 43);
 		StartupCheckBox.setFocusable(false);
 		frame.getContentPane().add(StartupCheckBox);
 		
@@ -80,5 +76,23 @@ public class GUI {
 	 */
 	public JFrame getFrame() {
 		return frame;
+	}	
+	
+	void reinitialize() {
+		btnDel = new JButton("Delete");	
+		btnDel.setBounds(142, 302, 118, 49);
+		btnDel.setFocusable(false);
+		frame.getContentPane().add(btnDel);
+		
+		btnAdd = new JButton("Add");
+		btnAdd.setBounds(10, 302, 118, 49);
+		btnAdd.setFocusable(false);
+		frame.getContentPane().add(btnAdd);
+		
+		StartupCheckBox = new JCheckBox("Open at startup");
+		StartupCheckBox.setBounds(394, 305, 126, 43);
+		StartupCheckBox.setFocusable(false);
+		frame.getContentPane().add(StartupCheckBox);
 	}
+	
 }
