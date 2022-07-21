@@ -28,13 +28,12 @@ public class DeleteAction {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				JOptionPane.showMessageDialog(null, "Unselected birthday to be removed, please choose one", "InfoBox: " + "Delete birthday", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 			@Override
 			public void mousePressed(MouseEvent e) {
 				// TODO Auto-generated method stub
-				JOptionPane.showMessageDialog(null, "Unselected birthday to be removed, please choose one", "InfoBox: " + "Delete birthday", JOptionPane.INFORMATION_MESSAGE);
 			}
 			
 			@Override
@@ -85,24 +84,25 @@ public class DeleteAction {
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
 				if(CurrentOrNext == 0 && GUI.CurrentMonth.isSelectionEmpty()){
 					JOptionPane.showMessageDialog(null, "Unselected birthday to be removed, please choose one", "InfoBox: " + "Delete birthday", JOptionPane.INFORMATION_MESSAGE);
 				} else if(CurrentOrNext == 1 && GUI.NextMonth.isSelectionEmpty()) {
 					JOptionPane.showMessageDialog(null, "Unselected birthday to be removed, please choose one", "InfoBox: " + "Delete birthday", JOptionPane.INFORMATION_MESSAGE);
 				} else {
-					System.out.println(deleteIndex);
+					int index;
 					if(CurrentOrNext == 0) {
-						
-						Months.tempList.remove(BtnDel.CurrentMonth.getSelectedIndex());
+						index = BtnDel.CurrentMonth.getSelectedIndex();
+						Months.tempList.remove(index);
+						if(Months.CequalM == 1) {
+							Months.tempListNew.remove(index);
+						}
 					}
 					if(CurrentOrNext == 1) {
-						Months.tempListNew.remove(BtnDel.NextMonth.getSelectedIndex());
+						index = BtnDel.NextMonth.getSelectedIndex();
+						Months.tempListNew.remove(index);
+						if(Months.CequalM == 1) {
+							Months.tempList.remove(index);
+						}
 					}
 					if(deleteIndex != 0) {
 						try {
@@ -111,10 +111,13 @@ public class DeleteAction {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
-					} else {
-						
 					}
 				}
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
 			}
 			
 			@Override

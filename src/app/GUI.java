@@ -70,14 +70,6 @@ public class GUI {
 		
 	}
 	
-	/**
-	 * Getter for frame
-	 * @return frame Main frame of the application
-	 */
-	public JFrame getFrame() {
-		return frame;
-	}	
-	
 	void reinitialize() {
 		btnDel = new JButton("Delete");	
 		btnDel.setBounds(142, 302, 118, 49);

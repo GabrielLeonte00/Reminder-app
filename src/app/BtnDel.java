@@ -50,8 +50,7 @@ public class BtnDel {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				int deleteIndex = tempDI.getDeleteIndex(temp);
-				System.out.println(deleteIndex);
+					int deleteIndex = tempDI.getDeleteIndex(temp);
 					delete = new DeleteAction(btnDel, deleteIndex);
 					delete.load();
 				
@@ -115,8 +114,7 @@ public class BtnDel {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				int deleteIndex = tempDI.getDeleteIndex(temp);
-					//System.out.println(deleteIndex);
+					int deleteIndex = tempDI.getDeleteIndex(temp);
 					delete = new DeleteAction(btnDel, deleteIndex);
 					delete.load();
 			}

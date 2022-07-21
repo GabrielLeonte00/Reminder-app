@@ -23,7 +23,7 @@ public class App {
 				public void run() {
 					try {
 						window = new GUI();
-						window.getFrame().setVisible(true);
+						GUI.frame.setVisible(true);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

@@ -149,11 +149,22 @@ public class AddBirthdayFrame {
 						JOptionPane.showMessageDialog(mesaj,"Birthday successfully added","Info",JOptionPane.INFORMATION_MESSAGE);
 						mesaj.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						mesaj.setFocusable(false);
-						//String newDate = newdate + " - " + txtFirstName.getText() + " " + txtLastName.getText();
-						//Months.tempList.addElement(newDate);
+						String newDate = newdate + " - " + txtFirstName.getText() + " " + txtLastName.getText();
+						Months.tempList.addElement(newDate);
+						try {
+							new Months().refreshCurrentMonth();
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						if(Months.CequalM == 1) {
+							new Months().refreshNextMonth();
+						}
 						txtFirstName.setText("First name");
 						txtLastName.setText("Last name");
 						dateChooser.setDate(date);
+						
+						
 					}
 				} catch (NullPointerException e1) {
 					JFrame mesaj = new JFrame();

@@ -30,6 +30,7 @@ public class Months {
 	static DefaultListModel<String> tempListNew;
 	private PropertyChangeListener monthChooserListener;
 	static JMonthChooser monthChooser;
+	static int CequalM = 0;
 	
 	Months(){
 	}
@@ -113,6 +114,11 @@ public class Months {
 						contNew++;
 					}
 				}
+				if(formatter_month.format(date).equals(getMonth(monthChooser.getMonth()))) {
+					CequalM = 1;
+				} else {
+					CequalM = 0;
+				}
 				OrderDaysMonth listNew = new OrderDaysMonth(tempListNew, dates, fnames, lnames);
 				try {
 					tempListNew = listNew.getOrder();
@@ -163,6 +169,70 @@ public class Months {
 			}
 		}
 		return nextMonth;
+	}
+	
+	void refreshCurrentMonth() throws ParseException {
+		
+		SimpleDateFormat formatter_month = new SimpleDateFormat("MMMM");  
+	    Date date = new Date();
+		try {
+			dates = fb.getDates();
+			fnames = ffn.getfname();
+			lnames = fln.getlname();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		tempList = new DefaultListModel<String>();
+		String tempLine;
+		for(int i = 1; i < dates.size(); i++) {
+			int cont = 0;
+			Date temp = new SimpleDateFormat("dd MMMM").parse(dates.get(i));
+			if(formatter_month.format(date).equals(formatter_month.format(temp))) {
+				tempLine = dates.get(i) + " - " + fnames.get(i) + " " + lnames.get(i);
+				tempList.add(cont, tempLine);
+				cont++;
+			}
+		}
+		OrderDaysMonth list = new OrderDaysMonth(tempList, dates, fnames, lnames);
+		tempList = list.getOrder();
+		GUI.CurrentMonth.setModel(tempList);
+	}
+	
+	void refreshNextMonth() {
+		SimpleDateFormat formatter_month = new SimpleDateFormat("MMMM");  
+	    try {
+			dates = fb.getDates();
+			fnames = ffn.getfname();
+			lnames = fln.getlname();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		tempListNew = new DefaultListModel<String>();
+		String tempLineNew;
+		for(int i = 1; i < dates.size(); i++) {
+			int contNew = 0;
+			Date tempNew = null;
+			try {
+				tempNew = new SimpleDateFormat("dd MMMM").parse(dates.get(i));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			if(formatter_month.format(tempNew).equals(getMonth(monthChooser.getMonth()))) {		
+				tempLineNew = dates.get(i) + " - " + fnames.get(i) + " " + lnames.get(i);
+				tempListNew.add(contNew, tempLineNew);
+				contNew++;
+			}
+			OrderDaysMonth listNew = new OrderDaysMonth(tempListNew, dates, fnames, lnames);
+			try {
+				tempListNew = listNew.getOrder();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			GUI.NextMonth.setModel(tempListNew);
+		}
 	}
 	
 }
