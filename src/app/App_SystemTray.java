@@ -35,7 +35,7 @@ public class App_SystemTray {
         }
 		
 		SystemTray systemTray = SystemTray.getSystemTray();
-		File icon = new File("res/icon.png");
+		File icon = new File("res/bdsystem.png");
 		Image image = ImageIO.read(icon);
 		trayIcon = new TrayIcon(image);
 		PopupMenu popMenu = new PopupMenu();

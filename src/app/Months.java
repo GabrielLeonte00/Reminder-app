@@ -43,12 +43,13 @@ public class Months {
 		txtCurrentMonth.setEditable(false);
 		txtCurrentMonth.setText(formatter_month.format(date)+"'s birthdays");
 		txtCurrentMonth.setHorizontalAlignment(SwingConstants.CENTER);
-		txtCurrentMonth.setBounds(10, 11, 250, 20);
+		txtCurrentMonth.setBounds(10, 11, 250, 30);
 		GUI.frame.getContentPane().add(txtCurrentMonth);
 		txtCurrentMonth.setColumns(10);
+		txtCurrentMonth.setFocusable(false);
 		
 		monthChooser = new JMonthChooser();
-		monthChooser.setBounds(341, 11, 108, 20);
+		monthChooser.setBounds(341, 11, 125, 30);
 		GUI.frame.getContentPane().add(monthChooser);
 		
 		GUI.scrollPaneCM = new JScrollPane();

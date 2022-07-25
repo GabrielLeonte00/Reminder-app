@@ -11,8 +11,8 @@ import java.util.Vector;
 public class Filelastname {
 
 	private Vector<String> lnames = new Vector<>();
-	File lname = new File("res/data_last_name");
-	Path lpath = Paths.get(lname.getAbsolutePath());	
+	private File lname = new File("res/data_last_name");
+	private Path lpath = Paths.get(lname.getAbsolutePath());	
 	
 	Filelastname(){	
 		

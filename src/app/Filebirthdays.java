@@ -11,8 +11,8 @@ import java.util.Vector;
 public class Filebirthdays {
 	
 	private Vector<String> dates = new Vector<>();
-	File bdate = new File("res/data_birthday_date");
-	Path bpath = Paths.get(bdate.getAbsolutePath()); 
+	private File bdate = new File("res/data_birthday_date");
+	private Path bpath = Paths.get(bdate.getAbsolutePath()); 
 	
 	Filebirthdays(){
 	}

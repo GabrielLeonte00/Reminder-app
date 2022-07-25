@@ -23,7 +23,7 @@ public class BtnAdd {
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				abf.getFrame().setVisible(true);
+				AddBirthdayFrame.frame.setVisible(true);
 			}
 		});
 		

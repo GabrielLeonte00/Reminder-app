@@ -25,7 +25,8 @@ import com.toedter.calendar.JDateChooser;
 
 public class AddBirthdayFrame {
 
-		private JFrame frame;
+		static JFrame frame;
+		static JDateChooser dateChooser;
 		private JTextField txtFirstName;
 		private JTextField txtLastName;
 		
@@ -38,7 +39,7 @@ public class AddBirthdayFrame {
 		Filebirthdays fb = new Filebirthdays();
 		
 		frame = new JFrame("Add new birthday");
-		File icon = new File("res/icon.png");
+		File icon = new File("res/bdwindow.png");
 		Image image = ImageIO.read(icon);
 		frame.setIconImage(image);
 		frame.setBounds(100, 100, 320, 140);
@@ -62,7 +63,7 @@ public class AddBirthdayFrame {
 		txtLastName.setFocusable(false);
 		frame.getContentPane().add(txtLastName);
 		
-		JDateChooser dateChooser = new JDateChooser();
+		dateChooser = new JDateChooser();
 		dateChooser.setBounds(10, 53, 133, 31);
 		frame.getContentPane().add(dateChooser);
 		dateChooser.setDate(date);
@@ -177,10 +178,6 @@ public class AddBirthdayFrame {
 		btnNewButton.setBounds(153, 53, 133, 31);
 		frame.getContentPane().add(btnNewButton);
 		
-	}
-	
-	public JFrame getFrame() {
-		return frame;
 	}
 	
 }

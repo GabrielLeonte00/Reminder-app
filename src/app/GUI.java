@@ -12,6 +12,7 @@ import javax.swing.JList;
 import javax.swing.JCheckBox;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class GUI {
 
@@ -19,6 +20,7 @@ public class GUI {
 	static JButton btnAdd;
 	static JButton btnDel;
 	static JCheckBox StartupCheckBox;
+	static JCheckBox DarkModeCheckBox;
 	static JList<String> CurrentMonth;
 	static JList<String> NextMonth;
 	static JScrollPane scrollPaneCM;
@@ -29,8 +31,9 @@ public class GUI {
 	 * Create the application.
 	 * @throws IOException 
 	 * @throws ParseException 
+	 * @throws UnsupportedLookAndFeelException 
 	 */
-	public GUI() throws IOException, ParseException {
+	public GUI() throws IOException, ParseException, UnsupportedLookAndFeelException {
 		initialize();
 		new App_SystemTray().load();
 		startApp = new Engine();
@@ -41,13 +44,15 @@ public class GUI {
 	/**
 	 * Initialize the contents of the frame.
 	 * @throws IOException 
+	 * @throws UnsupportedLookAndFeelException 
 	 */
-	private void initialize() throws IOException {
+	private void initialize() throws IOException, UnsupportedLookAndFeelException {	
+		
 		frame = new JFrame("Birthday reminder");
 		frame.setBounds(100, 100, 546, 401);
 		frame.setLocationRelativeTo(null);
 		
-		File icon = new File("res/icon.png");
+		File icon = new File("res/bdwindow.png");
 		Image image = ImageIO.read(icon);
 		frame.setIconImage(image);
 		frame.setResizable(false);
@@ -64,9 +69,13 @@ public class GUI {
 		frame.getContentPane().add(btnAdd);
 		
 		StartupCheckBox = new JCheckBox("Open at startup");
-		StartupCheckBox.setBounds(334, 305, 186, 43);
+		StartupCheckBox.setBounds(296, 305, 118, 43);
 		StartupCheckBox.setFocusable(false);
 		frame.getContentPane().add(StartupCheckBox);
+		
+		DarkModeCheckBox = new JCheckBox("DarkMode");
+		DarkModeCheckBox.setBounds(416, 305, 95, 43);
+		frame.getContentPane().add(DarkModeCheckBox);
 		
 	}
 	
@@ -85,6 +94,11 @@ public class GUI {
 		StartupCheckBox.setBounds(394, 305, 126, 43);
 		StartupCheckBox.setFocusable(false);
 		frame.getContentPane().add(StartupCheckBox);
+	}
+	
+	int getCurrentTheme(){
+		
+		return 0;
 	}
 	
 }
