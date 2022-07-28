@@ -13,6 +13,8 @@ import java.nio.file.Paths;
 public class Startup {
 
 	private File startupOK = new File("res/startup");
+	private File startupBatch = new File("res/BirthdayReminder.bat");
+	private File startupExe = new File("BirthdayReminder.exe");
 	private Path bpath = Paths.get(startupOK.getAbsolutePath());
 	private int OK;
 	
@@ -26,6 +28,8 @@ public class Startup {
 			GUI.StartupCheckBox.setSelected(false);
 		}
 		brOK.close();
+		
+
 	}
 	
 	void load() throws IOException {
@@ -43,11 +47,22 @@ public class Startup {
 						writer.write("0");
 					}
 					writer.close();
+					//System.out.println("Start "+startupExe.getAbsolutePath());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}	
-			}
+				/*try {
+					//Start D:\Eclipse\workspace\workspace001\ReminderApp\BirthdayReminder.exe
+					writer = Files.newBufferedWriter(Paths.get(startupBatch.getAbsolutePath()));
+					writer.write("1");
+					//writer.write("Start "+startupExe.getAbsolutePath());
+					System.out.println("Start "+startupExe.getAbsolutePath());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}*/
+			}	
 		});
 	}
 	
