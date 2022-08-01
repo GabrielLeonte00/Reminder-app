@@ -19,7 +19,6 @@ public class GUI {
 	static JFrame frame;
 	static JButton btnAdd;
 	static JButton btnDel;
-	static JCheckBox StartupCheckBox;
 	static JCheckBox DarkModeCheckBox;
 	static JList<String> CurrentMonth;
 	static JList<String> NextMonth;
@@ -68,13 +67,8 @@ public class GUI {
 		btnAdd.setFocusable(false);
 		frame.getContentPane().add(btnAdd);
 		
-		StartupCheckBox = new JCheckBox("Open at startup");
-		StartupCheckBox.setBounds(296, 305, 118, 43);
-		StartupCheckBox.setFocusable(false);
-		frame.getContentPane().add(StartupCheckBox);
-		
 		DarkModeCheckBox = new JCheckBox("DarkMode");
-		DarkModeCheckBox.setBounds(416, 305, 95, 43);
+		DarkModeCheckBox.setBounds(356, 305, 155, 43);
 		frame.getContentPane().add(DarkModeCheckBox);
 		
 	}
@@ -89,11 +83,6 @@ public class GUI {
 		btnAdd.setBounds(10, 302, 118, 49);
 		btnAdd.setFocusable(false);
 		frame.getContentPane().add(btnAdd);
-		
-		StartupCheckBox = new JCheckBox("Open at startup");
-		StartupCheckBox.setBounds(394, 305, 126, 43);
-		StartupCheckBox.setFocusable(false);
-		frame.getContentPane().add(StartupCheckBox);
 	}
 	
 	int getCurrentTheme(){

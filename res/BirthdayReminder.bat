@@ -1,1 +1,0 @@
-Start D:\Eclipse\workspace\workspace001\ReminderApp\BirthdayReminder.exe

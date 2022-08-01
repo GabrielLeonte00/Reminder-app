@@ -2,11 +2,8 @@ package app;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Vector;
 
@@ -50,7 +47,6 @@ public class FileDeleteIndex {
 		deleteDate(indexDelete);
 		deleteFirstName(indexDelete);
 		deleteLastName(indexDelete);
-		recreateTemp();
 	}
 	
 	
@@ -113,14 +109,6 @@ public class FileDeleteIndex {
 		for(int i = 0; i < temp.size(); i++) {
 			Files.write(fln.getpath(), temp.get(i).getBytes(), StandardOpenOption.APPEND);
 		}
-	}
-	
-	void recreateTemp() throws IOException {
-		File temp = new File("res/temp");
-		Path tempPath = Paths.get(temp.getAbsolutePath()); 
-		BufferedWriter writer = Files.newBufferedWriter(tempPath);
-		writer.write("");
-		writer.close();
 	}
 	
 }

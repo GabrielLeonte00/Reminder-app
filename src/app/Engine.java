@@ -14,7 +14,6 @@ public class Engine {
 	}
 	
 	void load() throws IOException, ParseException, UnsupportedLookAndFeelException{
-		new Startup().load();
 		tempMon = new Months();
 		BtnAdd tempAdd = new BtnAdd();
 		tempMon.load();
