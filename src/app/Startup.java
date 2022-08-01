@@ -37,6 +37,7 @@ public class Startup {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				String textBatch = "Start " + startupExe.getAbsolutePath(); 
 				BufferedWriter writer;
 				try {
 					writer = Files.newBufferedWriter(Paths.get(startupOK.getAbsolutePath()));
@@ -52,16 +53,17 @@ public class Startup {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}	
-				/*try {
+				try {
 					//Start D:\Eclipse\workspace\workspace001\ReminderApp\BirthdayReminder.exe
 					writer = Files.newBufferedWriter(Paths.get(startupBatch.getAbsolutePath()));
-					writer.write("1");
+					writer.write(textBatch);
+					writer.close();
 					//writer.write("Start "+startupExe.getAbsolutePath());
-					System.out.println("Start "+startupExe.getAbsolutePath());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}*/
+					
+				}
 			}	
 		});
 	}

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.nio.file.StandardOpenOption;
 import java.util.Vector;
 
@@ -54,61 +53,66 @@ public class FileDeleteIndex {
 		recreateTemp();
 	}
 	
+	
 	void deleteDate(int indexDelete) throws IOException {
+		Vector<String> temp = new Vector<>();
 		int cont = 0;
-		File temp = new File("res/temp");
-		Path tempPath = Paths.get(temp.getAbsolutePath()); 
-		BufferedWriter writer = Files.newBufferedWriter(tempPath);
-		writer.write("");
-		writer.close();
 		BufferedReader br_date = Files.newBufferedReader(fb.getpath());
 		String bline = null;
 		while((bline = br_date.readLine()) != null) { 
 			if(cont != indexDelete && cont != 0) {
 				String date = System.lineSeparator() + bline;
-				Files.write(tempPath, date.getBytes(), StandardOpenOption.APPEND);
+				temp.add(date);
 			}
 			cont++;
 		}
-		Files.move(tempPath, fb.getpath(), StandardCopyOption.REPLACE_EXISTING);
+		BufferedWriter writer = Files.newBufferedWriter(fb.getpath());
+		writer.write("");
+		for(int i = 0; i < temp.size(); i++) {
+			Files.write(fb.getpath(), temp.get(i).getBytes(), StandardOpenOption.APPEND);
+		}
+	}
+	
+	void delDate(int indexDelete) throws IOException {
+		
 	}
 	
 	void deleteFirstName(int indexDelete) throws IOException {
+		Vector<String> temp = new Vector<>();
 		int cont = 0;
-		File temp = new File("res/temp");
-		Path tempPath = Paths.get(temp.getAbsolutePath()); 
-		BufferedWriter writer = Files.newBufferedWriter(tempPath);
-		writer.write("");
-		writer.close();
 		BufferedReader br_date = Files.newBufferedReader(ffn.getpath());
 		String bline = null;
 		while((bline = br_date.readLine()) != null) { 
 			if(cont != indexDelete && cont != 0) {
 				String date = System.lineSeparator() + bline;
-				Files.write(tempPath, date.getBytes(), StandardOpenOption.APPEND);
+				temp.add(date);
 			}
 			cont++;
 		}
-		Files.move(tempPath, ffn.getpath(), StandardCopyOption.REPLACE_EXISTING);
+		BufferedWriter writer = Files.newBufferedWriter(ffn.getpath());
+		writer.write("");
+		for(int i = 0; i < temp.size(); i++) {
+			Files.write(ffn.getpath(), temp.get(i).getBytes(), StandardOpenOption.APPEND);
+		}
 	}
 	
 	void deleteLastName(int indexDelete) throws IOException {
+		Vector<String> temp = new Vector<>();
 		int cont = 0;
-		File temp = new File("res/temp");
-		Path tempPath = Paths.get(temp.getAbsolutePath()); 
-		BufferedWriter writer = Files.newBufferedWriter(tempPath);
-		writer.write("");
-		writer.close();
 		BufferedReader br_date = Files.newBufferedReader(fln.getpath());
 		String bline = null;
 		while((bline = br_date.readLine()) != null) { 
 			if(cont != indexDelete && cont != 0) {
 				String date = System.lineSeparator() + bline;
-				Files.write(tempPath, date.getBytes(), StandardOpenOption.APPEND);
+				temp.add(date);
 			}
 			cont++;
 		}
-		Files.move(tempPath, fln.getpath(), StandardCopyOption.REPLACE_EXISTING);
+		BufferedWriter writer = Files.newBufferedWriter(fln.getpath());
+		writer.write("");
+		for(int i = 0; i < temp.size(); i++) {
+			Files.write(fln.getpath(), temp.get(i).getBytes(), StandardOpenOption.APPEND);
+		}
 	}
 	
 	void recreateTemp() throws IOException {

@@ -45,21 +45,19 @@ public class DarkMode {
 					writer = Files.newBufferedWriter(Paths.get(darkmodeOK.getAbsolutePath()));
 					writer.write("");
 					if(GUI.DarkModeCheckBox.isSelected()) {
-						writer.write("1");
 						OK = 1;
+						writer.write("1");
 						UIManager.setLookAndFeel(new FlatNightOwlContrastIJTheme());
 						AddBirthdayFrame.dateChooser.getDateEditor().removePropertyChangeListener(update);
-						System.out.println(OK);
 						updateDateEditor();
 						SwingUtilities.updateComponentTreeUI(GUI.frame);
 						SwingUtilities.updateComponentTreeUI(AddBirthdayFrame.frame);
 						SwingUtilities.updateComponentTreeUI(AddBirthdayFrame.dateChooser);
 					} else {
-						writer.write("0");
 						OK = 0;
+						writer.write("0");
 						UIManager.setLookAndFeel(new FlatSolarizedLightIJTheme());
 						AddBirthdayFrame.dateChooser.getDateEditor().removePropertyChangeListener(update);
-						System.out.println(OK);
 						updateDateEditor();
 						SwingUtilities.updateComponentTreeUI(GUI.frame);
 						SwingUtilities.updateComponentTreeUI(AddBirthdayFrame.frame);
